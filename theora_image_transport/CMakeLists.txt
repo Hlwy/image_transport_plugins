@@ -1,7 +1,10 @@
 cmake_minimum_required(VERSION 3.0.2)
 project(theora_image_transport)
 
-find_package(OpenCV REQUIRED)
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED TRUE)
+set(CMAKE_CXX_FLAGS "-std=c++11 ${CMAKE_CXX_FLAGS}")
+find_package(OpenCV 4.2 REQUIRED)
 find_package(catkin REQUIRED COMPONENTS cv_bridge dynamic_reconfigure image_transport message_generation rosbag pluginlib std_msgs)
 
 add_message_files(DIRECTORY msg FILES Packet.msg)
@@ -33,11 +36,11 @@ include_directories(include
   ${PC_THEORADEC_INCLUDE_DIRS}
 )
 
-link_directories(${PC_OGG_LIBRARY_DIRS} 
+link_directories(${PC_OGG_LIBRARY_DIRS}
                  ${PC_THEORA_LIBRARY_DIRS}
                  ${PC_THEORAENC_LIBRARY_DIRS}
                  ${PC_THEORADEC_LIBRARY_DIRS})
-add_definitions(${PC_OGG_CFLAGS_OTHER} 
+add_definitions(${PC_OGG_CFLAGS_OTHER}
                 ${PC_THEORA_CFLAGS_OTHER}
                 ${PC_THEORAENC_CFLAGS_OTHER}
                 ${PC_THEORADEC_CFLAGS_OTHER}
@@ -56,10 +59,10 @@ target_link_libraries(${PROJECT_NAME} ${catkin_LIBRARIES}
 class_loader_hide_library_symbols(${PROJECT_NAME})
 
 add_executable(ogg_saver src/ogg_saver.cpp)
-target_link_libraries(ogg_saver ${PC_THEORA_LIBRARY} 
-                                ${PC_OGG_LIBRARY} 
-                                ${OpenCV_LIBRARIES} 
-                                ${catkin_LIBRARIES}  
+target_link_libraries(ogg_saver ${PC_THEORA_LIBRARY}
+                                ${PC_OGG_LIBRARY}
+                                ${OpenCV_LIBRARIES}
+                                ${catkin_LIBRARIES}
                                 ${PC_THEORAENC_LIBRARIES}
                                 ${PC_THEORADEC_LIBRARIES})
 add_dependencies(ogg_saver ${PROJECT_NAME}_gencpp)

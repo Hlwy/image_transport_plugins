@@ -1,7 +1,11 @@
 cmake_minimum_required(VERSION 3.0.2)
 project(compressed_image_transport)
 
-find_package(OpenCV REQUIRED)
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED TRUE)
+set(CMAKE_CXX_FLAGS "-std=c++11 ${CMAKE_CXX_FLAGS}")
+
+find_package(OpenCV 4.2 REQUIRED)
 find_package(catkin REQUIRED COMPONENTS cv_bridge dynamic_reconfigure image_transport)
 
 # generate the dynamic_reconfigure config file
